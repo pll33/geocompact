@@ -1,0 +1,2 @@
+# geocompact
+Measuring geographical compactness
