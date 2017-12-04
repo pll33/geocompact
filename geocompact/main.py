@@ -3,6 +3,7 @@ import sys
 import math
 import shapefile
 import csv
+import us
 
 import methods
 
@@ -25,6 +26,8 @@ def polygon_perimeter_area(polygon_pts):
         area /= 2
     return perimeter, abs(area)
 
+def fips_lookup_abbr(fips_code):
+    return str(us.states.lookup(str(fips_code)).abbr)
 
 def main():
     if (len(sys.argv) == 3):
@@ -56,8 +59,8 @@ def main():
     sf_new.fields[len(sf.fields)-2] = ['FROMCOUNTY', 'L', 1, 0]
 
     with open('export/calculations_export.csv', 'wb') as csvfile:
-        csv_fields = ['STATENAME', 'ID', 'DISTRICT', 'STARTCONG', 'ENDCONG',
-                      'area', 'perimeter', 'convex_hull', 'polsby_popper',
+        csv_fields = ['state', 'STATEFP', 'CDFP', 'GEOID', 'NAMELSAD', 'LSAD',
+                      'CDSESSN', 'area', 'perimeter', 'convex_hull', 'polsby_popper',
                       'reock', 'schwartzberg']
         csv_new = csv.DictWriter(csvfile, fieldnames=csv_fields)
         csv_new.writeheader()
@@ -89,15 +92,18 @@ def main():
                 sf_new.poly(parts=[shapeRec.shape.points])
 
                 # print shapeRec.record[1], s_area, s_perim, m_convexhull, m_polsbypopper, m_reock, m_schwartzberg
-                print 'id: ', new_record[1], '\tperimeter: ', s_perim, '\tarea: ', s_area
+                state_abbr = fips_lookup_abbr(shapeRec.record[0])
+                print '{0}-{1}\tperimeter: {2}\tarea: {3}'.format(state_abbr, shapeRec.record[1], s_perim, s_area)
 
                 # write to csv
                 csv_new.writerow({
-                    'STATENAME': shapeRec.record[0],
-                    'ID': shapeRec.record[1],
-                    'DISTRICT': shapeRec.record[2],
-                    'STARTCONG': shapeRec.record[3],
-                    'ENDCONG': shapeRec.record[4],
+                    'state': state_abbr,
+                    'STATEFP': shapeRec.record[0],
+                    'CDFP': shapeRec.record[1],
+                    'GEOID': shapeRec.record[2],
+                    'NAMELSAD': shapeRec.record[3],
+                    'LSAD': shapeRec.record[4],
+                    'CDSESSN': shapeRec.record[5],
                     'area': s_area,
                     'perimeter': s_perim,
                     'convex_hull': m_convexhull,
