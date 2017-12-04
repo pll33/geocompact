@@ -26,8 +26,10 @@ def polygon_perimeter_area(polygon_pts):
         area /= 2
     return perimeter, abs(area)
 
+
 def fips_lookup_abbr(fips_code):
     return str(us.states.lookup(str(fips_code)).abbr)
+
 
 def main():
     if (len(sys.argv) == 3):
@@ -71,6 +73,10 @@ def main():
             according to ESRI shapefile technical description)
         '''
         for shapeRec in sf.iterShapeRecords():
+            # remove territories, DC, and undefined districts (leaving only voting members of Congress)
+            if (shapeRec.record[4] != 'C2' and shapeRec.record[4] != 'C1'):
+                continue
+
             if (shapeRec.shape.shapeType == 5):
 
                 s_perim, s_area = polygon_perimeter_area(shapeRec.shape.points)
