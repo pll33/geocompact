@@ -21,4 +21,4 @@ Measuring geographical compactness
 
 [2] TIGER/Line® Shapefiles and TIGER/Line® Files. https://www.census.gov/geo/maps-data/data/tiger-line.html
 
-[3] Jeffrey B. Lewis, Brandon DeVine, Lincoln Pitcher, and Kenneth C. Martis. (2013). Digital Boundary Definitions of United States Congressional Districts, 1789-2012.
+[3] Jeffrey B. Lewis, Brandon DeVine, Lincoln Pitcher, and Kenneth C. Martis. (2013). Digital Boundary Definitions of United States Congressional Districts, 1789-2012. http://cdmaps.polisci.ucla.edu/
