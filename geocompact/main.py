@@ -31,7 +31,7 @@ def main():
         shp_file = sys.argv[1]
         dbf_file = sys.argv[2]
     else:
-        print('Please include shp and dbf file in arguments.')
+        print 'Please include shp and dbf file in arguments.'
         sys.exit()
 
     # open shapefile
@@ -89,7 +89,7 @@ def main():
                 sf_new.poly(parts=[shapeRec.shape.points])
 
                 # print shapeRec.record[1], s_area, s_perim, m_convexhull, m_polsbypopper, m_reock, m_schwartzberg
-                print('id: ', new_record[1], '\tperimeter: ', s_perim, '\tarea: ', s_area)
+                print 'id: ', new_record[1], '\tperimeter: ', s_perim, '\tarea: ', s_area
 
                 # write to csv
                 csv_new.writerow({
@@ -106,8 +106,8 @@ def main():
                     'schwartzberg': m_schwartzberg
                 })
 
-        print('Saving export CSV...')
-        print('Saving export shapefiles...')
+        print 'Saving export CSV...'
+        print 'Saving export shapefiles...'
         sf_new.save('export/compactness_calc')
 
     sys.exit()

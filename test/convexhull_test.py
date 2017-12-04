@@ -29,8 +29,8 @@ for shapeRec in r.iterShapeRecords():
 
 if (pa > ca):
 
-    print('WARNING: found polygon with larger base area than convex hull area')
-    print('polygon_area: ', pa, '\tconvex_area: ', ca
+    print 'WARNING: found polygon with larger base area than convex hull area'
+    print 'polygon_area: ', pa, 'convex_area: ', ca
 
     patch_poly = PolygonPatch(poly, facecolor='#999999', edgecolor='#999999', alpha=0.3, zorder=3)
     ax.add_patch(patch_poly)
@@ -56,6 +56,6 @@ if (pa > ca):
     pyplot.show()
 
 else:
-    print('no districts found with larger base area than convex hull area')
+    print 'no districts found with larger base area than convex hull area'
 
 
