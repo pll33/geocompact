@@ -1,30 +1,10 @@
 
 import sys
-import math
 import shapefile
 import csv
 import us
 
 import methods
-
-
-def polygon_perimeter_area(polygon_pts):
-    area = 0.0
-    perimeter = 0.0
-
-    len_pts = len(polygon_pts)
-    if (len_pts > 0):
-        if (len_pts % 2 == 1):
-            polygon_pts.append(polygon_pts[0])
-
-        for i in range(len_pts):
-            pt0 = polygon_pts[i]
-            pt1 = polygon_pts[(i+1) % len_pts]
-            area += (pt0[0]*pt1[1] - pt0[1]*pt1[0])
-            perimeter += math.sqrt(math.pow(pt1[0]-pt0[0], 2) + math.pow(pt1[1]-pt0[1], 2))
-
-        area /= 2
-    return perimeter, abs(area)
 
 
 def fips_lookup_abbr(fips_code):
@@ -76,7 +56,7 @@ def main():
 
             if (shapeRec.shape.shapeType == 5):
 
-                s_perim, s_area = polygon_perimeter_area(shapeRec.shape.points)
+                s_area, s_perim = methods.area_perimeter(shapeRec.shape.points)
 
                 # apply each compactness calculation method
                 #      add to shapefile record (district row)
