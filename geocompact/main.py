@@ -57,9 +57,6 @@ def main():
        ['SCHWARTZBERG', 'N', '50', 15]
     ]
 
-    # overwrite FROMCOUNTY record size (avoid ShapefileException L995 in shapefile.py)
-    sf_new.fields[len(sf.fields)-2] = ['FROMCOUNTY', 'L', 1, 0]
-
     with open('export/calculations_export.csv', 'wb') as csvfile:
         csv_fields = ['state', 'STATEFP', 'CDFP', 'GEOID', 'NAMELSAD', 'LSAD',
                       'CDSESSN', 'area', 'perimeter', 'convex_hull', 'polsby_popper',
@@ -97,7 +94,6 @@ def main():
                 sf_new.record(*new_record)
                 sf_new.poly(parts=[shapeRec.shape.points])
 
-                # print shapeRec.record[1], s_area, s_perim, m_convexhull, m_polsbypopper, m_reock, m_schwartzberg
                 state_abbr = fips_lookup_abbr(shapeRec.record[0])
                 print '{0}-{1}\tperimeter: {2}\tarea: {3}'.format(state_abbr, shapeRec.record[1], s_perim, s_area)
 
